@@ -79,8 +79,9 @@ class RateMyProfScraper:
                 print(self.professorlist[self.indexnumber][key])
                 return self.professorlist[self.indexnumber][key]
 
-UniversityId = 795
-rpiProfessorlist = createprofessorlist()
 
-with open(f"rmp.json", "w") as outfile:  # -{os.getenv("CURRENT_TERM")}
-    json.dump(rpiProfessorlist, outfile, sort_keys=False, indent=2)
+if __name__ == "__main__":
+    print("hi")
+    RPI = RateMyProfScraper(795)
+    rpiProfessorlist = RPI.createprofessorlist() # returns a list of dictionaries
+    

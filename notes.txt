@@ -4,6 +4,8 @@ https://www.analyticsvidhya.com/blog/2021/08/python-tutorial-working-with-csv-fi
 
 Selenium scraper will probably be too slow since it will require repeatedly pressing the show more button.
 
+https://github.com/Rodantny/Rate-My-Professor-Scraper-and-Search
+
 Current Idea:
 Populate information from the RMP site into a csv file using a premade scraper.
 Find out how the frontend vue code gathers info from the db objects.
@@ -11,3 +13,7 @@ Populate a database so the site can display the site statistics.
 
 Add a bit to the code to have some more statistics for professors.
 Needs a function to query professors in the database.
+
+
+
+There's a connection between courses.py(db directory) and course.py(tables directory). Connection.py makes a connection between table files and db files
