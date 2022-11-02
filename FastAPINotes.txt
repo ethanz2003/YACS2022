@@ -1,0 +1,76 @@
+from fastapi import FastAPI
+
+app = FastAPI()
+
+Endpoints: if baseurl is localhost and endpoint is what comes after the slash like localhost/home or facebook.com/home
+
+Main methods: GET, POST, PUT, DELETE
+
+command: uvicorn (file name): (name of variable with FastAPI() loaded) --reload
+
+@app.get("/")
+def home():
+	return {"Data": "Test"} <- python dictionary
+
+dictionary gets converted into a json format
+
+inventory = {
+
+	1: {
+		"name": "Milk",
+		"price": 3.99,
+		"brand": "Regular"
+		}
+
+	}	
+
+
+@app.get("/get-item/{item_id}/{name}")
+def get_item(item_id: int, name: str = None):
+	return inventory[item_id]
+
+
+@app.get("/get-item/{item_id}")
+def get_item(item_id: int = Path(None, description="ID of item"):
+	return inventory[item_id]
+
+{item_id} is a parameter from the URL following the forward slash
+
+@app.get("/get-by-name")
+def get_item(name: str):
+	for item_id in inventory: 
+		if inventory[item_id]["name"] == name:
+			return inventory[item_id]
+	return {"Data": "Not Found"}
+
+endpoint looks like /get-by-name?name=bob
+setting the query parameter to None sets a default parameter
+
+You can do import from typing import Optional
+@app.get("/get-by-name")
+def get_item(name: Optional[str] = None):
+	for item_id in inventory: 
+		if inventory[item_id]["name"] == name:
+			return inventory[item_id]
+	return {"Data": "Not Found"}
+
+putting an asterisks as the first parameter of a get function allows the following parameters to be input in any order
+
+Post function:
+
+
+
+
+
+@app.post("/create-item/{item_id}")
+def create_item(item_id: int, item: Item) <- Item is an object created in a class
+	if item_id in inventory:
+		return{"Error": "Item ID already exists."}
+	inventory[item_id] = item
+	return inventory[item_id]
+
+
+from fastapi import FastAPI, Path, Query, HTTPException, status
+
+raise HTTPException(status_code = 404, detail = "Item name not found
+
