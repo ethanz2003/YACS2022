@@ -32,14 +32,14 @@ for block in blocks:
 		# populate json variable
 		if re.sub(r'[0-9]', '', school.strong.span.text).strip() == "Information Technologyand Web Science":
 			new_school = {}
-			current_school = "Information Technology and Web Science"
-			new_school[current_school] = []
+			new_school['School Name'] = ["Information Technology and Web Science"]
+			new_school['Majors'] = []
 			schools.append(new_school)
 			continue
 		
 		new_school = {}
-		current_school = re.sub(r'[0-9]', '', school.strong.span.text).strip()
-		new_school[current_school] = []
+		new_school['School Name'] = [re.sub(r'[0-9]', '', school.strong.span.text).strip()]
+		new_school['Majors'] = []
 		schools.append(new_school) 
 	
 	# when find() runs into major block formatting
@@ -52,13 +52,13 @@ for block in blocks:
 		if major_p:
 			for i in range(len(major_p)):
 				if(degrees_p[i].text.find('B.') != -1): # change find string for other degrees
-					schools[-1][current_school].append(major_p[i].text)
+					schools[-1]['Majors'].append(major_p[i].text)
 			continue
 		
 		# standard major output
 		if degrees.text.find('B.') != -1: # change find string for other degrees
-			schools[-1][current_school].append(major.text)
-			print(major.text.strip())
+			schools[-1]['Majors'].append(major.text)
+			# print(major.text.strip())
 
 # dump scraped information into json file
 with open("schools.json", "w") as write_file:
