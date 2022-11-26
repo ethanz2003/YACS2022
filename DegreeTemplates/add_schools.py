@@ -8,6 +8,15 @@ with open("Data/schools.json", "r") as read_file:
 
 output = []
 
+
+# change the formatting of major data
+for major in data:
+	for key in major.keys():
+		if isinstance(major[key], list):
+			for i in range(len(major[key])):
+				major[key][i] = major[key][i].replace("Course: ", "")
+				major[key][i] = major[key][i].replace("Credit Hours: ", "| Credits: ")
+
 # iterate through
 for school in schools:
 	schoolObj = {}
@@ -15,8 +24,17 @@ for school in schools:
 	schoolObj["Majors"] = []
 	for school_major in school["Majors"]:
 		for major in data:
-			if major["Major"].find(school_major) != -1: #found the major
-				schoolObj["Majors"].append(major)
+			if major not in schoolObj["Majors"] and major["Major"].find(school_major) != -1: #found the major
+				if len(schoolObj["Majors"]) == 0:
+					schoolObj["Majors"].append(major)
+				else:
+					prev = len(schoolObj["Majors"])
+					for i in range(len(schoolObj["Majors"])):
+						if major["Major"] < schoolObj["Majors"][i]["Major"]:
+							schoolObj["Majors"].insert(i, major)
+							break;
+					if len(schoolObj["Majors"]) == prev:
+						schoolObj["Majors"].append(major)
 	output.append(schoolObj)
 
 with open("Data/SchoolDegreeTemplates.json", "w") as write_file:
